@@ -1,0 +1,65 @@
+void main() {
+  // Example usage
+  List<int> array = [64, 34, 25, 12, 22, 11, 90];
+  print('Original array: $array');
+
+  insertionSort(array);
+  print('Sorted array: $array');
+
+  // Test with another array
+  List<int> array2 = [5, 1, 4, 2, 8];
+  print('\nOriginal array: $array2');
+
+  insertionSort(array2);
+  print('Sorted array: $array2');
+}
+
+/// Sorts an array using the insertion sort algorithm.
+///
+/// This function sorts the list in-place and doesn't return a new list.
+void insertionSort(List<int> arr) {
+  for (int i = 1; i < arr.length; i++) {
+    int key = arr[i];
+    int j = i - 1;
+
+    // Move elements of arr[0..i-1] that are greater than key
+    // to one position ahead of their current position
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+
+    // Uncomment to see step-by-step sorting process
+    // print('After iteration $i: $arr');
+  }
+}
+
+// Advanced implementation with generics to sort any comparable type
+void insertionSortGeneric<T extends Comparable<T>>(List<T> arr) {
+  for (int i = 1; i < arr.length; i++) {
+    T key = arr[i];
+    int j = i - 1;
+
+    while (j >= 0 && arr[j].compareTo(key) > 0) {
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
+}
+
+// Example of using the generic version
+void demonstrateGenericSort() {
+  List<String> names = ['Zack', 'Alice', 'Bob', 'Carol', 'David'];
+  print('Original names: $names');
+
+  insertionSortGeneric(names);
+  print('Sorted names: $names');
+
+  List<double> decimals = [3.14, 1.618, 2.718, 0.577, 1.414];
+  print('Original decimals: $decimals');
+
+  insertionSortGeneric<num>(decimals);
+  print('Sorted decimals: $decimals');
+}
